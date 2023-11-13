@@ -32,52 +32,47 @@ public class HocSinhDAO extends EduConnectDAO<HocSinh, String>{
                 entity.getEmail(),
                 entity.getHoTen(),
                 entity.getNgaySinh(),
-                entity.getgioiTinh());
+                entity.getGioiTinh(),
+                entity.getSoDienThoai(),
+                entity.getDiaChi());
 
     }
 
     @Override
-    public void update(QuanTriVien entity) {
+    public void update(HocSinh entity) {
         JDBCHelper.update(UPDATE_SQL,
                 entity.getTenDangNhap(),
                 entity.getMatKhau(),
                 entity.getEmail(),
                 entity.getHoTen(),
-                entity.getMaQuanTriVien());
+                entity.getNgaySinh(),
+                entity.getGioiTinh(),
+                entity.getSoDienThoai(),
+                entity.getDiaChi(),
+                entity.getMaHocSinh());
     }
 
     @Override
-    public void delete(String maQuanTriVien) {
-        JDBCHelper.update(DELETE_SQL, maQuanTriVien);
+    public void delete(String maHocSinh) {
+        JDBCHelper.update(DELETE_SQL, maHocSinh);
     }
 
     @Override
-    public QuanTriVien selectByid(String id) {
-        List<QuanTriVien> list = this.selectBySql(SELECT_BY_ID_SQL, id);
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        return list.get(0);
-    }
-
-    @Override
-    public List<QuanTriVien> selectAll() {
-        return this.selectBySql(SELECT_ALL_SQL);
-    }
-
-    @Override
-    protected List<QuanTriVien> selectBySql(String sql, Object... args) {
-        List<QuanTriVien> list = new ArrayList<QuanTriVien>();
+    protected List<HocSinh> selectBySql(String sql, Object... args) {
+        List<HocSinh> list = new ArrayList<HocSinh>();
         try {
             ResultSet rs = JDBCHelper.query(sql, args);
             while (rs.next()) {
-                QuanTriVien entity = new QuanTriVien();
-                entity.setMaQuanTriVien(rs.getInt("MaQuanTriVien"));
+                HocSinh entity = new HocSinh();
+                entity.setMaHocSinh(rs.getInt("MaHocSinh"));
                 entity.setTenDangNhap(rs.getString("TenDangNhap"));
                 entity.setMatKhau(rs.getString("MatKhau"));
                 entity.setEmail(rs.getString("Email"));
                 entity.setHoTen(rs.getString("HoVaTen"));
+                entity.setNgaySinh(rs.getString("NgaySinh"));
+                entity.setGioiTinh(rs.getBoolean("GioiTinh"));
+                entity.setSoDienThoai(rs.getString("SoDienThoai"));
+                entity.setDiaChi(rs.getString("DiaChi"));
 
                 list.add(entity);
             }
@@ -87,5 +82,19 @@ public class HocSinhDAO extends EduConnectDAO<HocSinh, String>{
             e.printStackTrace(); // Ghi log chi tiết về ngoại lệ
             throw new RuntimeException("Lỗi khi thực hiện truy vấn SQL", e);
         }
+    }
+
+    @Override
+    public HocSinh selectByid(String id) {
+        List<HocSinh> list = this.selectBySql(SELECT_BY_ID_SQL, id);
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.get(0);
+    }
+
+    @Override
+    public List<HocSinh> selectAll() {
+        return this.selectBySql(SELECT_ALL_SQL);
     }
 }

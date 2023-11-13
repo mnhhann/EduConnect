@@ -13,7 +13,7 @@ import ENTITY.QuanTriVien;
  * @author Hân Mai
  */
 public class Auth {
-    public static QuanTriVien user = null;
+    public static Object user = null;
     
     public static void clear(){
         Auth.user = null;

@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import DAO.HocSinhDAO;
 import DAO.QuanTriVienDAO;
+import ENTITY.HocSinh;
 import ENTITY.QuanTriVien;
 import UTILS.Auth;
 
@@ -13,7 +15,9 @@ import UTILS.Auth;
  * @author Hân Mai
  */
 public class DangNhapJDialog extends javax.swing.JDialog {
+
     QuanTriVienDAO quantrivienDAO = new QuanTriVienDAO();
+    HocSinhDAO hocsinhDAO = new HocSinhDAO();
     /**
      * Creates new form DangNhapJDialog
      */
@@ -21,20 +25,26 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
-    void dangNhap(){
+
+    void dangNhap() {
         String tenDangNhap = txtTenDangNhap.getText();
         String matKhau = txtMatKhau.getText();
         QuanTriVien qtv = quantrivienDAO.selectByid(tenDangNhap);
-        if(qtv == null){
-            System.out.println("sai tên đn");
-        }else if(!matKhau.equals(qtv.getMatKhau())){
-            System.out.println("sai mk");
-        }else{
+        if (qtv == null) {
+            // Thử đăng nhập với tư cách Học Sinh
+            HocSinh hocSinh = hocsinhDAO.selectByid(tenDangNhap);
+            if (hocSinh != null && matKhau.equals(hocSinh.getMatKhau())) {
+                Auth.user = hocSinh;
+                System.out.println("Đăng nhập thành công với tư cách Học Sinh");
+            } 
+        } else if (!matKhau.equals(qtv.getMatKhau())) {
+            System.out.println("Sai mật khẩu");
+        } else {
             Auth.user = qtv;
-            System.out.println("thành công");
+            System.out.println("Đăng nhập thành công với tư cách Quản Trị Viên");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
