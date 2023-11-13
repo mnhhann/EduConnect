@@ -75,7 +75,7 @@ public class GiangVien {
         this.ngaySinh = ngaySinh;
     }
 
-    public boolean isGioiTinh() {
+    public boolean getGioiTinh() {
         return GioiTinh;
     }
 

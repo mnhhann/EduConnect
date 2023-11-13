@@ -69,7 +69,7 @@ public class HocSinhDAO extends EduConnectDAO<HocSinh, String>{
                 entity.setMatKhau(rs.getString("MatKhau"));
                 entity.setEmail(rs.getString("Email"));
                 entity.setHoTen(rs.getString("HoVaTen"));
-                entity.setNgaySinh(rs.getString("NgaySinh"));
+                entity.setNgaySinh(rs.getDate("NgaySinh"));
                 entity.setGioiTinh(rs.getBoolean("GioiTinh"));
                 entity.setSoDienThoai(rs.getString("SoDienThoai"));
                 entity.setDiaChi(rs.getString("DiaChi"));

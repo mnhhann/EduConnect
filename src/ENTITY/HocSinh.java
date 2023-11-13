@@ -4,6 +4,8 @@
  */
 package ENTITY;
 
+import java.util.Date;
+
 /**
  *
  * @author Hân Mai
@@ -14,7 +16,7 @@ public class HocSinh {
     private String matKhau;
     private String email;
     private String hoTen;
-    private String ngaySinh;
+    private Date ngaySinh;
     private boolean gioiTinh;
     private String soDienThoai;
     private String diaChi;
@@ -64,13 +66,14 @@ public class HocSinh {
         this.hoTen = hoTen;
     }
 
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(String ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
+    
 
     public boolean getGioiTinh() {
         return gioiTinh;
